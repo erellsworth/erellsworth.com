@@ -1,8 +1,6 @@
 <template>
   <section class="section">
-    <ul>
-      <li v-for="content in contents" :key="content.id">{{ content.title }}</li>
-    </ul>
+    <ContentGrid :contents="contents" />
   </section>
 </template>
 
@@ -13,7 +11,7 @@ export default {
     title: "E.R. Ellsworth",
   },
   async asyncData({ $axios }) {
-    const contents = await $axios.$get("api/content");
+    const contents = await $axios.$get("api");
     return { contents };
   },
 };
