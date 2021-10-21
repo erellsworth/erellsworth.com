@@ -1,10 +1,21 @@
-import { DataTypes, Model, ModelCtor } from "sequelize";
+import { DataTypes, Model, ModelAttributes, ModelCtor, Optional } from "sequelize";
+import { MediaInterface } from "~/interfaces/media";
 import { ContentInterface } from "../../interfaces/content";
 import { db } from "../utils";
-import { BaseAttributes } from "./BaseAttributes";
+// import { BaseAttributes } from "./BaseAttributes";
+import { Media } from "./Media";
 import { TaxonomyModel } from "./Taxonomy";
 
-const ContentModel: ModelCtor<Model<any, any>> = db.define('Content', Object.assign({
+
+// Some fields are optional when calling UserModel.create() or UserModel.build()
+interface ContentCreationAttributes extends Optional<ContentInterface, "id"> { }
+
+// We need to declare an interface for our model that is basically what our class would be
+interface ContentInstance
+    extends Model<ContentInterface, ContentCreationAttributes>,
+    ContentInterface { }
+
+const attributes: ModelAttributes<ContentInstance, ContentInterface> = {
     title: {
         type: DataTypes.STRING,
         allowNull: false
@@ -27,17 +38,58 @@ const ContentModel: ModelCtor<Model<any, any>> = db.define('Content', Object.ass
     text: {
         type: DataTypes.TEXT,
     },
+    html: {
+        type: DataTypes.TEXT,
+    },
     metaData: {
         type: DataTypes.JSONB
     },
     seo: {
         type: DataTypes.JSON
+    },
+    thumbnail: {
+        type: DataTypes.VIRTUAL
+    },
+    // standard attributes:
+    id: {
+        primaryKey: true,
+        type: DataTypes.INTEGER.UNSIGNED,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        get() {
+            const rawValue = this.getDataValue('createdAt');
+            return new Date(rawValue).toDateString();
+        }
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+            const rawValue = this.getDataValue('updatedAt');
+            return new Date(rawValue).toDateString();
+        }
     }
-}, BaseAttributes));
+}
+
+const ContentModel = db.define<ContentInstance>('Content', attributes);
+
+const attachThumbnails = async (contents: ContentInterface[]) => {
+    return Promise.all(contents.map(async (content: ContentInterface): Promise<ContentInterface> => {
+        return await attachThumbnail(content)
+    }));
+}
+
+const attachThumbnail = async (content: ContentInterface) => {
+    if (content.metaData.media_id) {
+        const media: MediaInterface = await Media.findByPk(content.metaData.media_id, { logging: false }) as unknown as MediaInterface;
+        content.thumbnail = `${process.env.ASSETS_URI}${media.path}/${media.filename}`;
+    }
+    return content;
+}
 
 const Content = {
     findAll: async (type: string = 'post', limit: number = 10): Promise<ContentInterface[]> => {
-        const content = await ContentModel.findAll({
+        const contents = await ContentModel.findAll({
             where: {
                 status: 'published',
                 type
@@ -48,7 +100,7 @@ const Content = {
             logging: false
         }) as unknown as ContentInterface[];
 
-        return content;
+        return await attachThumbnails(contents);
     },
     findBySlug: async (slug: string): Promise<ContentInterface> => {
         const content = await ContentModel.findOne({
@@ -60,7 +112,7 @@ const Content = {
             logging: false
         }) as unknown as ContentInterface;
 
-        return content;
+        return await attachThumbnail(content);
     }
 };
 

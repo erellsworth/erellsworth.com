@@ -9,6 +9,8 @@ export interface ContentInterface extends baseInterface {
     type: ContentType;
     status: ContentStatus;
     text: string;
+    html: string;
+    content: any;
     seo: {
         description: string;
     };
@@ -16,5 +18,6 @@ export interface ContentInterface extends baseInterface {
         text: string;
         media_id: string;
     };
-    Taxonomies?: TaxonomyInterface[]
+    Taxonomies?: TaxonomyInterface[];
+    thumbnail?: string;
 }

@@ -1,6 +1,10 @@
 import { DataTypes, Model, ModelAttributes } from 'sequelize';
 
-const BaseAttributes: ModelAttributes<Model<any, any>> = {
+const BaseAttributes: ModelAttributes<any, any> = {
+    id: {
+        primaryKey: true,
+        type: DataTypes.INTEGER.UNSIGNED,
+    },
     createdAt: {
         type: DataTypes.DATE,
         get() {
