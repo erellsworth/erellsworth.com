@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <section class="section">
-      <h1>{{ content.title }}</h1>
+      <h1 class="title">{{ content.title }}</h1>
       <img :src="content.thumbnail" />
     </section>
     <section class="section columns is-centered">

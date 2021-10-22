@@ -21,3 +21,9 @@ export interface ContentInterface extends baseInterface {
     Taxonomies?: TaxonomyInterface[];
     thumbnail?: string;
 }
+
+export interface ContentQuery {
+    type: 'post' | 'page';
+    limit: number;
+    page: number;
+}

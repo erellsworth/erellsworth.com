@@ -7,7 +7,6 @@
             :src="content.thumbnail"
             alt="The Buefy Logo"
             ratio="16by9"
-            :rounded="rounded"
           ></b-image>
         </NuxtLink>
       </figure>

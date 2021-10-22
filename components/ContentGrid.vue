@@ -1,11 +1,17 @@
 <template>
-  <section class="content_section section">
-    <div class="columns is-multiline">
-      <div class="column is-half" v-for="content in contents" :key="content.id">
-        <CardLink :content="content" />
+  <div class="container">
+    <section class="content_section section">
+      <div class="columns is-multiline">
+        <div
+          class="column is-half"
+          v-for="content in contents.results"
+          :key="content.id"
+        >
+          <CardLink :content="content" />
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>

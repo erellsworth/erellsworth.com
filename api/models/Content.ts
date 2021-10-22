@@ -1,6 +1,7 @@
 import { DataTypes, Model, ModelAttributes, ModelCtor, Optional } from "sequelize";
 import { MediaInterface } from "~/interfaces/media";
-import { ContentInterface } from "../../interfaces/content";
+import { contentResults } from "~/interfaces/misc";
+import { ContentInterface, ContentQuery } from "../../interfaces/content";
 import { db } from "../utils";
 // import { BaseAttributes } from "./BaseAttributes";
 import { Media } from "./Media";
@@ -88,8 +89,13 @@ const attachThumbnail = async (content: ContentInterface) => {
 }
 
 const Content = {
-    findAll: async (type: string = 'post', limit: number = 10): Promise<ContentInterface[]> => {
-        const contents = await ContentModel.findAll({
+    findAll: async (query: ContentQuery): Promise<contentResults> => {
+        const { type, limit, page } = query;
+        const offset = (parseInt(page.toString()) - 1) * limit;
+
+        console.log('offset', offset);
+
+        const { count, rows } = await ContentModel.findAndCountAll({
             where: {
                 status: 'published',
                 type
@@ -97,10 +103,19 @@ const Content = {
             include: TaxonomyModel,
             order: [['createdAt', 'DESC']],
             limit,
-            logging: false
-        }) as unknown as ContentInterface[];
+            logging: false,
+            distinct: true,
+            offset
+        });
 
-        return await attachThumbnails(contents);
+        const results = await attachThumbnails(rows);
+
+        return {
+            results,
+            count,
+            perPage: limit
+        };
+
     },
     findBySlug: async (slug: string): Promise<ContentInterface> => {
         const content = await ContentModel.findOne({
