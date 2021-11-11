@@ -1,19 +1,18 @@
 import { DataTypes, Model, ModelAttributes, ModelCtor, Optional } from "sequelize";
 import { MediaInterface } from "~/interfaces/media";
-import { contentResults } from "~/interfaces/misc";
+import { PaginatedResults } from "~/interfaces/misc";
+import { TaxonomyQuery } from "~/interfaces/taxonomy";
 import { ContentInterface, ContentQuery } from "../../interfaces/content";
 import { db } from "../utils";
-// import { BaseAttributes } from "./BaseAttributes";
 import { Media } from "./Media";
 import { TaxonomyModel } from "./Taxonomy";
 
-
 // Some fields are optional when calling UserModel.create() or UserModel.build()
-interface ContentCreationAttributes extends Optional<ContentInterface, "id"> { }
+interface ContentCreationAttributes extends Optional<ContentInterface, "id"> { Tag: any }
 
 // We need to declare an interface for our model that is basically what our class would be
 interface ContentInstance
-    extends Model<ContentInterface, ContentCreationAttributes>,
+    extends Model<any, ContentCreationAttributes>,
     ContentInterface { }
 
 const attributes: ModelAttributes<ContentInstance, ContentInterface> = {
@@ -81,19 +80,18 @@ const attachThumbnails = async (contents: ContentInterface[]) => {
 }
 
 const attachThumbnail = async (content: ContentInterface) => {
-    if (content.metaData.media_id) {
-        const media: MediaInterface = await Media.findByPk(content.metaData.media_id, { logging: false }) as unknown as MediaInterface;
+
+    if (content && content.metaData.media_id) {
+        const media: MediaInterface = await Media.findById(content.metaData.media_id);
         content.thumbnail = `${process.env.ASSETS_URI}${media.path}/${media.filename}`;
     }
     return content;
 }
 
 const Content = {
-    findAll: async (query: ContentQuery): Promise<contentResults> => {
+    findAll: async (query: ContentQuery): Promise<PaginatedResults> => {
         const { type, limit, page } = query;
         const offset = (parseInt(page.toString()) - 1) * limit;
-
-        console.log('offset', offset);
 
         const { count, rows } = await ContentModel.findAndCountAll({
             where: {
@@ -108,12 +106,12 @@ const Content = {
             offset
         });
 
-        const results = await attachThumbnails(rows);
+        const contents = await attachThumbnails(rows);
 
         return {
-            results,
-            count,
-            perPage: limit
+            contents,
+            total: count,
+            page: page
         };
 
     },
@@ -128,6 +126,34 @@ const Content = {
         }) as unknown as ContentInterface;
 
         return await attachThumbnail(content);
+    },
+    findByTaxonomy: async (query: TaxonomyQuery): Promise<PaginatedResults> => {
+        const { slug, limit, page } = query;
+        const offset = (parseInt(page.toString()) - 1) * limit;
+
+        const { count, rows } = await ContentModel.findAndCountAll({
+            where: {
+                status: 'published',
+                '$Taxonomies.slug$': slug
+            },
+            include: [{
+                model: TaxonomyModel,
+                duplicating: false
+            }],
+            order: [['createdAt', 'DESC']],
+            limit,
+            logging: false,
+            distinct: true,
+            offset
+        });
+
+        const contents = await attachThumbnails(rows);
+
+        return {
+            contents,
+            total: count,
+            page: offset
+        };
     }
 };
 
