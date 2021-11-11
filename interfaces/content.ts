@@ -19,6 +19,7 @@ export interface ContentInterface extends baseInterface {
         media_id: string;
     };
     Taxonomies?: TaxonomyInterface[];
+    Tag?: any;
     thumbnail?: string;
 }
 

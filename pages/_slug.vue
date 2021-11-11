@@ -18,10 +18,18 @@ export default {
       title: `E.R. Ellsworth - ${this.content.title}`,
     };
   },
-  async asyncData({ params, $axios }) {
-    const content = await $axios.$get(`api/${params.slug}`);
-    console.log("content", content);
-    return { content, params };
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.$get(`api/${params.slug}`);
+
+    if (!response.success) {
+      error({
+        statusCode: response.error.code,
+        message: response.error.message,
+      });
+      return;
+    }
+
+    return { content: response.data, params };
   },
 };
 </script>

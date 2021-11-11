@@ -1,3 +1,5 @@
+import { sortRoutes } from '@nuxt/utils';
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -60,4 +62,28 @@ export default {
   serverMiddleware: {
     '/api': '~/api'
   },
+
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '/blog/:page(\\d+)?',
+        component: resolve(__dirname, 'pages/index.vue')
+      });
+
+      routes.push({
+        path: '/blog/:slug(\\D+)',
+        redirect: to => {
+          return { path: `/tag/${to.params.slug}` };
+        }
+      });
+
+      routes.push({
+        path: '/tag/:tag/:page?',
+        component: resolve(__dirname, 'pages/tag/_tag.vue')
+      });
+
+
+      sortRoutes(routes);
+    }
+  }
 }

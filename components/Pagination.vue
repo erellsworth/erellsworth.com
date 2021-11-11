@@ -13,7 +13,8 @@
       aria-page-label="Page"
       aria-current-label="Current page"
       @change="pageChange()"
-    />
+    >
+    </b-pagination>
   </section>
 </template>
 

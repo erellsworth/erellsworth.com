@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-image">
       <figure class="image">
-        <NuxtLink :to="content.slug">
+        <NuxtLink :to="`/${content.slug}`">
           <b-image
             :src="content.thumbnail"
             alt="The Buefy Logo"
@@ -15,7 +15,7 @@
       <div class="media">
         <div class="media-content">
           <p class="title is-4">
-            <NuxtLink :to="content.slug">{{ content.title }}</NuxtLink>
+            <NuxtLink :to="`/${content.slug}`">{{ content.title }}</NuxtLink>
           </p>
         </div>
       </div>

@@ -2,36 +2,35 @@
   <section class="section">
     <ContentGrid :contents="contents" />
     <Pagination
-      :total="contents.count"
-      :perPage="contents.perPage"
-      :current="page"
+      :total="total"
+      perPage="6"
+      :page="page"
       @pageChange="pageChange($event)"
     />
   </section>
 </template>
 
 <script>
-const params = {
-  page: 1,
-};
-
 export default {
   name: "HomePage",
   head: {
     title: "E.R. Ellsworth",
   },
   methods: {
-    async pageChange(page) {
-      params.page = page;
-      this.contents = await this.$axios.$get("api", { params });
+    pageChange(page) {
+      this.$router.push("/blog/" + page);
     },
   },
-  async asyncData({ $axios }) {
-    const contents = await $axios.$get("api", { params });
-    return {
-      contents,
-      page: params.page,
-    };
+  async asyncData({ $axios, params }) {
+    let url = "api";
+
+    if (params.page) {
+      url += `/blog/${params.page}`;
+    }
+
+    let response = await $axios.$get(url);
+
+    return response.data;
   },
 };
 </script>

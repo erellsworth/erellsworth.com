@@ -4,7 +4,7 @@
       <div class="columns is-multiline">
         <div
           class="column is-half"
-          v-for="content in contents.results"
+          v-for="content in contents"
           :key="content.id"
         >
           <CardLink :content="content" />
