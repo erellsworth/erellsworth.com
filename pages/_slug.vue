@@ -7,6 +7,9 @@
     <section class="section columns is-centered">
       <div class="content column is-half is-medium" v-html="content.html"></div>
     </section>
+    <section class="section columns is-centered">
+      <TagLinks :tags="content.Taxonomies" />
+    </section>
   </div>
 </template>
 

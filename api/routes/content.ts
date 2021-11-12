@@ -9,6 +9,7 @@ import contentRouter from "./router";
 contentRouter.get('/:slug?', async (req: Request, res: Response) => {
 
     let content: ContentInterface | PaginatedResults;
+
     const { slug } = req.params;
 
     if (slug) {
@@ -64,6 +65,11 @@ contentRouter.get('/tag/:slug/:page?', async (req: Request, res: Response) => {
     };
 
     let taxonomy = await Taxonomy.findBySlug(query);
+
+    if (!taxonomy) {
+        notFoundResponse(res);
+        return;
+    }
 
     let contents = await Content.findByTaxonomy(query);
 
