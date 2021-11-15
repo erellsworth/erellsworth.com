@@ -14,11 +14,20 @@
 </template>
 
 <script>
+import { getMeta } from "../helpers";
+
 export default {
   name: "Content",
   head() {
     return {
       title: `E.R. Ellsworth - ${this.content.title}`,
+      meta: this.meta,
+      link: [
+        {
+          rel: "canonical",
+          href: `https://erellsworth.com/${this.content.slug}`,
+        },
+      ],
     };
   },
   async asyncData({ params, $axios, error }) {
@@ -32,7 +41,9 @@ export default {
       return;
     }
 
-    return { content: response.data, params };
+    const meta = getMeta(response.data);
+
+    return { content: response.data, params, meta };
   },
 };
 </script>

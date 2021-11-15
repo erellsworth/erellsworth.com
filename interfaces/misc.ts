@@ -22,3 +22,9 @@ export interface ApiResponse {
         code: number;
     }
 }
+
+export interface NuxtMeta {
+    hid: string;
+    name: string;
+    content: string;
+}

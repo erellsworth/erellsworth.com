@@ -13,6 +13,7 @@ export interface ContentInterface extends baseInterface {
     content: any;
     seo: {
         description: string;
+        [key: string]: string
     };
     metaData: {
         text: string;

@@ -7,7 +7,9 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'E.R. Ellsworth' },
+      { hid: 'og:description', name: 'og:description', content: 'E.R. Ellsworth' },
+      { hid: 'og:site_name', name: 'og:site_name', content: 'E.R. Ellsworth' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
