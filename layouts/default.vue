@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="navbar header has-shadow is-dark"
+      class="navbar header is-dark"
       role="navigation"
       aria-label="main navigation"
     >
@@ -16,7 +16,7 @@
       </div>
     </nav>
 
-    <section class="main-content columns">
+    <section class="main-content columns has-background-black">
       <div class="container column is-12">
         <Nuxt />
       </div>

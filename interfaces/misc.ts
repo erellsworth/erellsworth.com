@@ -28,3 +28,5 @@ export interface NuxtMeta {
     name: string;
     content: string;
 }
+
+export type ContentWithMedia = ContentInterface | TaxonomyInterface;

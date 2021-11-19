@@ -1,4 +1,5 @@
 import { baseInterface } from "./base"
+import { Image } from "./media";
 import { TaxonomyInterface } from "./taxonomy";
 
 export type ContentType = 'post' | 'page';
@@ -21,7 +22,7 @@ export interface ContentInterface extends baseInterface {
     };
     Taxonomies?: TaxonomyInterface[];
     Tag?: any;
-    thumbnail?: string;
+    image?: Image;
 }
 
 export interface ContentQuery {

@@ -1,7 +1,7 @@
 import { DataTypes, Model, ModelAttributes, ModelCtor, Optional } from "sequelize";
-import { TaxonomyInterface, TaxonomyQuery } from "~/interfaces/taxonomy";
+import { TaxonomyInterface } from "~/interfaces/taxonomy";
 import { db } from "../utils/db";
-import { ContentModel } from "./Content";
+import { attachImage } from "../utils/media.helper";
 
 interface TaxonomyCreationAttributes extends Optional<TaxonomyInterface, "id"> { }
 
@@ -24,6 +24,12 @@ const attributes: ModelAttributes<TaxonomyInstance, TaxonomyInterface> = {
     },
     metaData: {
         type: DataTypes.JSONB
+    },
+    image: {
+        type: DataTypes.VIRTUAL
+    },
+    content: {
+        type: DataTypes.VIRTUAL
     },
     id: {
         primaryKey: true,
@@ -48,16 +54,16 @@ const attributes: ModelAttributes<TaxonomyInstance, TaxonomyInterface> = {
 const TaxonomyModel = db.define<TaxonomyInstance>('Taxonomy', attributes);
 
 const Taxonomy = {
-    findBySlug: async (query: TaxonomyQuery): Promise<TaxonomyInterface> => {
-        const { slug, page, limit } = query;
-        const offset = (parseInt(page.toString()) - 1) * limit;
+    findBySlug: async (slug: string): Promise<TaxonomyInterface> => {
 
-        const tag = await TaxonomyModel.findOne({
+        let tag = await TaxonomyModel.findOne({
             where: {
                 slug
             },
             logging: false
         }) as unknown as TaxonomyInterface;
+
+        tag = await attachImage(tag) as TaxonomyInterface;
 
         return tag;
     }

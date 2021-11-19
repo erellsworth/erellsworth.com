@@ -4,8 +4,9 @@
       <figure class="image">
         <NuxtLink :to="`/${content.slug}`">
           <b-image
-            :src="content.thumbnail"
-            alt="The Buefy Logo"
+            v-if="content.image"
+            :src="content.image.thumbnail"
+            :alt="content.title"
             ratio="16by9"
           ></b-image>
         </NuxtLink>
@@ -15,7 +16,9 @@
       <div class="media">
         <div class="media-content">
           <p class="title is-4">
-            <NuxtLink :to="`/${content.slug}`">{{ content.title }}</NuxtLink>
+            <NuxtLink :to="`/${content.slug}`" class="has-text-info-dark">{{
+              content.title
+            }}</NuxtLink>
           </p>
         </div>
       </div>

@@ -30,11 +30,11 @@ export const getMeta = (content: ContentInterface): NuxtMeta[] => {
         }
     ];
 
-    if (content.thumbnail) {
+    if (content.image) {
         meta.push({
             hid: "og:image",
             name: "og:image",
-            content: content.thumbnail,
+            content: content.image.full,
         });
     }
 

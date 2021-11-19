@@ -4,6 +4,7 @@ import { PaginatedResults } from "~/interfaces/misc";
 import { TaxonomyQuery } from "~/interfaces/taxonomy";
 import { ContentInterface, ContentQuery } from "../../interfaces/content";
 import { db } from "../utils";
+import { attachImage, attachImages } from "../utils/media.helper";
 import { Media } from "./Media";
 import { TaxonomyModel } from "./Taxonomy";
 
@@ -47,7 +48,7 @@ const attributes: ModelAttributes<ContentInstance, ContentInterface> = {
     seo: {
         type: DataTypes.JSON
     },
-    thumbnail: {
+    image: {
         type: DataTypes.VIRTUAL
     },
     // standard attributes:
@@ -73,21 +74,6 @@ const attributes: ModelAttributes<ContentInstance, ContentInterface> = {
 
 const ContentModel = db.define<ContentInstance>('Content', attributes);
 
-const attachThumbnails = async (contents: ContentInterface[]) => {
-    return Promise.all(contents.map(async (content: ContentInterface): Promise<ContentInterface> => {
-        return await attachThumbnail(content)
-    }));
-}
-
-const attachThumbnail = async (content: ContentInterface) => {
-
-    if (content && content.metaData.media_id) {
-        const media: MediaInterface = await Media.findById(content.metaData.media_id);
-        content.thumbnail = `${process.env.ASSETS_URI}${media.path}/${media.filename}`;
-    }
-    return content;
-}
-
 const Content = {
     findAll: async (query: ContentQuery): Promise<PaginatedResults> => {
         const { type, limit, page } = query;
@@ -106,10 +92,10 @@ const Content = {
             offset
         });
 
-        const contents = await attachThumbnails(rows);
+        const contents = await attachImages(rows) as ContentInterface[];
 
         return {
-            contents,
+            contents: contents,
             total: count,
             page: page
         };
@@ -125,7 +111,7 @@ const Content = {
             logging: false
         }) as unknown as ContentInterface;
 
-        return await attachThumbnail(content);
+        return await attachImage(content) as ContentInterface;
     },
     findByTaxonomy: async (query: TaxonomyQuery): Promise<PaginatedResults> => {
         const { slug, limit, page } = query;
@@ -147,12 +133,12 @@ const Content = {
             offset
         });
 
-        const contents = await attachThumbnails(rows);
+        const contents = await attachImages(rows) as ContentInterface[];
 
         return {
             contents,
             total: count,
-            page: offset
+            page
         };
     }
 };

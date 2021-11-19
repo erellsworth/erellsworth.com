@@ -1,12 +1,25 @@
 <template>
   <div class="container">
-    <section class="section">
-      <h1 class="title">{{ content.title }}</h1>
-      <img :src="content.thumbnail" />
+    <section class="hero has-background-black">
+      <h1 class="title has-text-primary-light py-3">{{ content.title }}</h1>
+      <b-image v-if="content.image" :src="content.image.full" />
     </section>
-    <section class="section columns is-centered">
-      <div class="content column is-half is-medium" v-html="content.html"></div>
+
+    <section class="section has-background-dark">
+      <div class="columns is-centered">
+        <div
+          class="
+            content
+            dynamic-content
+            column
+            is-half is-medium
+            has-text-primary-light
+          "
+          v-html="content.html"
+        ></div>
+      </div>
     </section>
+
     <section class="section columns is-centered">
       <TagLinks :tags="content.Taxonomies" />
     </section>

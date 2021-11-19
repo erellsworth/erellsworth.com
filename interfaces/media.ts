@@ -8,3 +8,8 @@ export interface MediaInterface {
     name: string;
     alt: string;
 }
+
+export interface Image {
+    full: string;
+    thumbnail: string;
+};

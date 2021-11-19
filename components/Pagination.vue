@@ -1,6 +1,5 @@
 <template>
-  <section>
-    <hr />
+  <section class="box">
     <b-pagination
       :total="total"
       v-model="current"

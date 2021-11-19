@@ -64,7 +64,7 @@ contentRouter.get('/tag/:slug/:page?', async (req: Request, res: Response) => {
         page: page ? parseInt(page) : 1
     };
 
-    let taxonomy = await Taxonomy.findBySlug(query);
+    let taxonomy = await Taxonomy.findBySlug(slug);
 
     if (!taxonomy) {
         notFoundResponse(res);
@@ -75,7 +75,7 @@ contentRouter.get('/tag/:slug/:page?', async (req: Request, res: Response) => {
 
     taxonomy.content = contents;
 
-    successResponse(res, contents);
+    successResponse(res, taxonomy);
 
 });
 
