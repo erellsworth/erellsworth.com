@@ -1,9 +1,6 @@
 <template>
   <div class="container">
-    <section class="hero has-background-black">
-      <h1 class="title has-text-primary-light py-3">{{ content.title }}</h1>
-      <b-image v-if="content.image" :src="content.image.full" />
-    </section>
+    <TitleImage :title="content.title" :image="content.image.full" />
 
     <section class="section has-background-dark">
       <div class="columns is-centered">

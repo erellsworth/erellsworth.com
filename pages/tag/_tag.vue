@@ -1,9 +1,6 @@
 <template>
   <div class="container">
-    <section class="hero has-background-black">
-      <h1 class="title has-text-primary-light py-3">{{ name }}</h1>
-      <b-image v-if="image" :src="image.full" />
-    </section>
+    <TitleImage :title="name" :image="image" />
     <section class="section">
       <ContentGrid :contents="contents" />
       <Pagination
@@ -51,10 +48,16 @@ export default {
     const { content, image, name } = response.data;
     const { contents, total } = content;
 
+    let imageUrl;
+
+    if (image) {
+      imageUrl = image.full;
+    }
+
     return {
       contents,
       name,
-      image,
+      image: imageUrl,
       total,
       page: parseInt(page),
       params,

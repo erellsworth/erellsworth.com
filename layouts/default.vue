@@ -6,7 +6,7 @@
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/"> Home </a>
+        <a class="navbar-item" href="/"> E.R. Ellsworth </a>
 
         <div class="navbar-burger">
           <span />
