@@ -12,11 +12,11 @@
         </NuxtLink>
       </figure>
     </div>
-    <div class="card-content">
+    <div class="card-content has-background-primary">
       <div class="media">
         <div class="media-content">
           <p class="title is-4">
-            <NuxtLink :to="`/${content.slug}`" class="has-text-info-dark">{{
+            <NuxtLink :to="`/${content.slug}`" class="has-text-light">{{
               content.title
             }}</NuxtLink>
           </p>
@@ -24,7 +24,9 @@
       </div>
 
       <div class="content">
-        <p>{{ content.seo.description }}</p>
+        <p class="has-text-black">
+          <strong>{{ content.seo.description }}</strong>
+        </p>
       </div>
     </div>
   </div>

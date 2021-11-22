@@ -6,7 +6,7 @@
         v-for="tag in tags"
         :key="tag.id"
         :to="`/tag/${tag.slug}`"
-        type="is-link"
+        type="is-primary"
       >
         {{ tag.name }}
       </b-button>

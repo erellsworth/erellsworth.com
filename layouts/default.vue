@@ -1,12 +1,12 @@
 <template>
   <div>
     <nav
-      class="navbar header is-dark"
+      class="navbar header is-primary"
       role="navigation"
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <a class="navbar-item" href="/"> E.R. Ellsworth </a>
+        <a class="navbar-item has-text-light" href="/"> E.R. Ellsworth </a>
 
         <div class="navbar-burger">
           <span />
@@ -16,7 +16,7 @@
       </div>
     </nav>
 
-    <section class="main-content columns has-background-black">
+    <section class="main-content columns has-background-dark">
       <div class="container column is-12">
         <Nuxt />
       </div>

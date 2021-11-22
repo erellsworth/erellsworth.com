@@ -1,7 +1,52 @@
+$black: #000000;
+$dark: #111314;
+$light: #d6dde1;
+$primary: #536d94 !default;
+$primary-light: #bcbc93;
+$pagination-current-background-color: $primary;
+$pagination-current-color: $light;
+$link: $light;
+$link-hover: $primary;
+$content-heading-color: $light;
+$background: $primary;
+
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
 .dynamic-content {
     a {
-        color: #0f87cc;
         font-weight: bold;
         letter-spacing: 0.5px;
+    }
+
+    blockquote {
+        color: $light;
+        border-left-color: $light;
+        border-radius: 5px 0 0 5px;
+        width: 110%;
+        margin-left: -5%;
+    }
+
+    figcaption {
+        color: $light;
+        font-size: 1rem;
+    }
+}
+
+.videoBlock {
+    width: 100%;
+    margin: 15px auto;
+    .videoWrap {
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 25px;
+        height: 0;
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     }
 }
