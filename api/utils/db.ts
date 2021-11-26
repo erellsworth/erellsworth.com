@@ -1,14 +1,19 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Options } from 'sequelize';
 
-const db = new Sequelize(process.env.DB_CONNECTION_STRING as string, {
+const dbOptions: Options = {
     dialect: 'postgres',
-    dialectOptions: {
+};
+
+if (process.env.APP_ENV === 'prod') {
+    dbOptions.dialectOptions = {
         ssl: {
-            require: true,
+            require: process.env.APP_ENV === 'prod',
             rejectUnauthorized: false
         }
-    }
-});
+    };
+}
+
+const db = new Sequelize(process.env.DB_CONNECTION_STRING as string, dbOptions);
 
 export {
     db
