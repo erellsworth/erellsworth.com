@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TitleImage :title="content.title" :image="content.image.full" />
+    <TitleImage :title="content.title" :image="image" />
 
     <section class="section has-background-dark">
       <div class="columns is-centered">
@@ -53,7 +53,13 @@ export default {
 
     const meta = getMeta(response.data);
 
-    return { content: response.data, params, meta };
+    let image;
+
+    if (response.data.image) {
+      image = response.data.image.full;
+    }
+
+    return { content: response.data, image, params, meta };
   },
 };
 </script>
