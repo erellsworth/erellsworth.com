@@ -1,5 +1,7 @@
 <template>
   <section class="section">
+    <CanvasNav />
+
     <ContentGrid :contents="contents" />
     <Pagination
       :total="total"
