@@ -8,7 +8,7 @@
         <h1 v-else class="has-text-primary-light">
           Sorry, but this shit is busted.
         </h1>
-        <p>{{ error.message }}</p>
+        <div v-html="error.message"></div>
       </div>
     </section>
   </div>

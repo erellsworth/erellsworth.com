@@ -30,3 +30,9 @@ export interface NuxtMeta {
 }
 
 export type ContentWithMedia = ContentInterface | TaxonomyInterface;
+
+export interface SettingInterface {
+    id: number;
+    key: string;
+    value: string;
+}
