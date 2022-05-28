@@ -15,7 +15,6 @@ contentRouter.get('/:slug?', async (req: Request, res: Response) => {
     if (slug) {
         content = await Content.findBySlug(slug);
     } else {
-
         const query: ContentQuery = {
             type: 'post',
             limit: 6,
@@ -35,7 +34,7 @@ contentRouter.get('/:slug?', async (req: Request, res: Response) => {
 
 contentRouter.get('/blog/:page', async (req: Request, res: Response) => {
 
-    let content: ContentInterface | PaginatedResults;
+    let content: PaginatedResults;
     const { page } = req.params;
 
     const query: ContentQuery = {

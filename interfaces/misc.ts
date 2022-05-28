@@ -14,9 +14,9 @@ export interface PaginatedResults {
     page: number;
 }
 
-export interface ApiResponse {
+export interface ApiResponse<T = void> {
     success: boolean;
-    data?: any;
+    data?: T;
     error?: {
         message: string;
         code: number;

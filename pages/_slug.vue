@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <TitleImage :title="content.title" :image="image" />
-
     <section class="section has-background-dark">
       <div class="columns is-centered">
         <div
@@ -39,6 +38,16 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    const readContentIds = this.$root.context.$localStore.get(
+      "readContentIds",
+      []
+    );
+    if (!readContentIds.includes(this.content.id)) {
+      readContentIds.push(this.content.id);
+      this.$root.context.$localStore.save("readContentIds", readContentIds);
+    }
   },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.$get(`api/${params.slug}`);
