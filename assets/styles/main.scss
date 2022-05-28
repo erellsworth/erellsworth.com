@@ -36,11 +36,13 @@ $background: $primary;
 .videoBlock {
     width: 100%;
     margin: 15px auto;
+
     .videoWrap {
         position: relative;
         padding-bottom: 56.25%;
         padding-top: 25px;
         height: 0;
+
         iframe {
             position: absolute;
             top: 0;
@@ -48,5 +50,11 @@ $background: $primary;
             width: 100%;
             height: 100%;
         }
+    }
+}
+
+.subscribe-form {
+    iframe {
+        border-radius: 10px;
     }
 }
