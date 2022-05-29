@@ -1,26 +1,12 @@
 <template>
   <div>
-    <nav
-      class="navbar header is-primary"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="navbar-brand">
-        <a class="navbar-item has-text-light" href="/"> E.R. Ellsworth </a>
-
-        <div class="navbar-burger">
-          <span />
-          <span />
-          <span />
-        </div>
-      </div>
-    </nav>
-
+    <TopNav />
     <section class="main-content columns has-background-dark">
       <div class="container column is-12">
         <Nuxt />
       </div>
     </section>
+
     <footer class="footer">
       <div class="content has-text-centered">
         <p>Copyright {{ year }} E.R. Ellsworth</p>
