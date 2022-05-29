@@ -28,6 +28,13 @@
           <strong v-bind:class="descriptionClass">{{
             content.seo.description
           }}</strong>
+          <b-icon
+            v-if="hasBeenRead"
+            icon="checkbox-marked-circle"
+            size="is-small"
+            type="is-info"
+          >
+          </b-icon>
         </p>
       </div>
     </div>
@@ -52,16 +59,17 @@ export default {
     );
   },
   computed: {
+    hasBeenRead() {
+      return componentData.readIds.includes(this.content.id);
+    },
     backgroundClass() {
-      const hasBeenRead = componentData.readIds.includes(this.content.id);
-      if (hasBeenRead) {
+      if (this.hasBeenRead) {
         return "has-background-grey-dark";
       }
       return "has-background-primary";
     },
     descriptionClass() {
-      const hasBeenRead = componentData.readIds.includes(this.content.id);
-      if (hasBeenRead) {
+      if (this.hasBeenRead) {
         return "has-text-primary-light";
       }
       return "";

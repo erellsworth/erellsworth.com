@@ -3,7 +3,7 @@ import { sortRoutes } from '@nuxt/utils';
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'erellsworth.com',
+    title: 'E.R. Eellsworth',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
