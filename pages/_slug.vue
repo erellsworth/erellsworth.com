@@ -8,10 +8,10 @@
             content
             dynamic-content
             column
-            is-half is-medium
+            is-two-thirds is-medium
             has-text-primary-light
           "
-          v-html="content.html"
+          v-html="html"
         ></div>
       </div>
     </section>
@@ -24,6 +24,12 @@
 
 <script>
 import { getMeta } from "../helpers";
+import { generateHTML } from "@tiptap/html";
+import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
+import Video from "../components/tiptap/VideoNode";
+import FigCaption from "../components/tiptap/FigCaption";
+import FigureNode from "../components/tiptap/FigureNode";
 
 export default {
   name: "Content",
@@ -68,7 +74,20 @@ export default {
       image = response.data.image.full;
     }
 
-    return { content: response.data, image, params, meta };
+    const content = response.data;
+    let html = content.html;
+
+    if (content.content) {
+      html = generateHTML(content.content, [
+        StarterKit,
+        Image,
+        Video,
+        FigCaption,
+        FigureNode,
+      ]);
+    }
+
+    return { content, html, image, params, meta };
   },
 };
 </script>
