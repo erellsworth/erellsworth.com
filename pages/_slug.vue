@@ -19,6 +19,9 @@
     <section class="section columns is-centered">
       <TagLinks :tags="content.Taxonomies" />
     </section>
+
+    <hr />
+    <SubStack />
   </div>
 </template>
 

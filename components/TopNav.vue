@@ -18,6 +18,29 @@
             type="is-primary"
             size="is-medium"
             @click="showSubscribe = true"
+            title="Substack"
+          />
+        </b-navbar-item>
+
+        <b-navbar-item tag="div">
+          <b-button
+            tag="a"
+            rel="me"
+            href="https://eattherich.club/@erellsworth"
+            target="_blank"
+            icon-right="mastodon"
+            type="is-primary"
+            size="is-medium"
+            title="Eat the rich"
+          />
+          <b-button
+            tag="a"
+            href="https://github.com/erellsworth/erellsworth.com"
+            target="_blank"
+            icon-right="github"
+            type="is-primary"
+            size="is-medium"
+            title="Github"
           />
         </b-navbar-item>
       </template>
