@@ -33,7 +33,7 @@ const attributes: ModelAttributes<TaxonomyInstance, TaxonomyInterface> = {
     },
     id: {
         primaryKey: true,
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
     },
     createdAt: {
         type: DataTypes.DATE,

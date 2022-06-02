@@ -32,7 +32,7 @@ const attributes: ModelAttributes<MediaInstance, MediaInterface> = {
     },
     id: {
         primaryKey: true,
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
     },
     createdAt: {
         type: DataTypes.DATE,

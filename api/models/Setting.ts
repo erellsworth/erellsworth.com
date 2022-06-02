@@ -20,7 +20,7 @@ const attributes: ModelAttributes<SettingInstance, SettingInterface> = {
     },
     id: {
         primaryKey: true,
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
     }
 };
 

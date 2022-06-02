@@ -54,7 +54,7 @@ const attributes: ModelAttributes<ContentInstance, ContentInterface> = {
     // standard attributes:
     id: {
         primaryKey: true,
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
     },
     createdAt: {
         type: DataTypes.DATE,
