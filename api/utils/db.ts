@@ -5,16 +5,16 @@ const dbOptions: Options = {
     logging: false
 };
 
-if (process.env.APP_ENV === 'prod') {
-    dbOptions.ssl = true;
-    dbOptions.dialectOptions = {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false,
-            ca: 'cert.crt'
-        }
-    };
-}
+// if (process.env.APP_ENV === 'prod') {
+
+//     dbOptions.dialectOptions = {
+//         ssl: {
+//             require: true,
+//             rejectUnauthorized: false,
+//             ca: 'cert.crt'
+//         }
+//     };
+// }
 
 const db = new Sequelize(process.env.DATABASE_URL as string, dbOptions);
 
