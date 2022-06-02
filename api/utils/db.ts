@@ -11,7 +11,7 @@ if (process.env.APP_ENV === 'prod') {
         ssl: {
             require: true,
             rejectUnauthorized: true,
-            ca: process.env.CA_CERT
+            ca: 'cert.crt'
         }
     };
 }
