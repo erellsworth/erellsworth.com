@@ -8,13 +8,14 @@ const dbOptions: Options = {
 if (process.env.APP_ENV === 'prod') {
     dbOptions.dialectOptions = {
         ssl: {
-            require: process.env.APP_ENV === 'prod',
-            rejectUnauthorized: false
+            require: true,
+            rejectUnauthorized: true,
+            ca: process.env.CA_CERT
         }
     };
 }
 
-const db = new Sequelize(process.env.DB_CONNECTION_STRING as string, dbOptions);
+const db = new Sequelize(process.env.DATABASE_URL as string, dbOptions);
 
 export {
     db
