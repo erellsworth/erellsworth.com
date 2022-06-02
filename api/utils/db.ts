@@ -10,7 +10,7 @@ if (process.env.APP_ENV === 'prod') {
     dbOptions.dialectOptions = {
         ssl: {
             require: true,
-            rejectUnauthorized: true,
+            rejectUnauthorized: false,
             ca: 'cert.crt'
         }
     };
