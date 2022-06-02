@@ -6,6 +6,7 @@ const dbOptions: Options = {
 };
 
 if (process.env.APP_ENV === 'prod') {
+    dbOptions.ssl = true;
     dbOptions.dialectOptions = {
         ssl: {
             require: true,
