@@ -1,22 +1,19 @@
-import { Sequelize, Options } from 'sequelize';
+import { Sequelize } from 'sequelize';
 
-const dbOptions: Options = {
+const { DB_NAME, DB_USER, DB_PASS, DB_HOST, DB_PORT, CA_CERT } = process.env;
+
+const db = new Sequelize(DB_NAME as string, DB_USER as string, DB_PASS as string, {
+    host: DB_HOST,
     dialect: 'postgres',
-    logging: false
-};
-
-if (process.env.APP_ENV === 'prod') {
-
-    dbOptions.dialectOptions = {
+    port: parseInt(DB_PORT as string),
+    dialectOptions: {
         ssl: {
             require: true,
             rejectUnauthorized: false,
-            ca: process.env.CA_CERT
+            ca: CA_CERT
         }
-    };
-}
-
-const db = new Sequelize(process.env.DATABASE_URL as string, dbOptions);
+    }
+});
 
 export {
     db
