@@ -1,9 +1,12 @@
 import express from 'express';
 import contentRouter from './routes/content';
+import externalRouter from './routes/external';
 
 // Create express instance
 const app = express();
 app.use(contentRouter);
+app.use(externalRouter);
+
 
 // Export express app
 module.exports = app;
