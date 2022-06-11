@@ -16,12 +16,23 @@
       </div>
     </section>
 
-    <section class="section columns is-centered">
+    <section class="columns is-centered">
       <TagLinks :tags="content.Taxonomies" />
     </section>
 
     <hr />
-    <SubStack />
+
+    <section class="columns is-centered">
+      <b-button
+        tag="a"
+        href="https://erellsworth.substack.com/"
+        target="_blank"
+        label="Subscribe"
+        type="is-primary"
+        size="is-medium"
+        title="Subscribe on Substack"
+      />
+    </section>
   </div>
 </template>
 

@@ -9,6 +9,7 @@ $link: $light;
 $link-hover: $primary;
 $content-heading-color: $light;
 $background: $primary;
+$footer-padding: 1.5rem 1rem 3rem;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
@@ -53,8 +54,12 @@ $background: $primary;
     }
 }
 
-.subscribe-form {
-    iframe {
-        border-radius: 10px;
+main {
+    &.main-content {
+        padding-bottom: 1rem;
+
+        &.columns {
+            margin-bottom: 0;
+        }
     }
 }
