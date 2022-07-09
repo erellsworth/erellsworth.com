@@ -52,7 +52,7 @@ export interface MastadonStatus {
         website: string;
     };
     account: MastadonAccount;
-    media_attachments: any[];
+    media_attachments: MastadonMedia[];
     mentions: any[];
     tags: {
         name: string;
@@ -62,3 +62,29 @@ export interface MastadonStatus {
     card?: any;
     poll?: any;
 };
+
+export interface MastadonMedia {
+    id: number;
+    type: string;
+    url: string;
+    preview_url: string;
+    remote_url: string;
+    preview_remote_url: string;
+    text_url: string;
+    meta: {
+        original: {
+            width: number;
+            height: number;
+            size: string;
+            aspect: number
+        };
+        small: {
+            width: number;
+            height: number;
+            size: string;
+            aspect: number
+        }
+    };
+    description: string;
+    blurhash: string
+}

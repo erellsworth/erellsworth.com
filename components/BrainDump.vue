@@ -28,14 +28,22 @@
                 :key="item.id"
               >
                 <div
-                  v-html="item.content"
                   class="
                     media-content
                     content
                     has-text-primary-light
                     brain-dump-content
                   "
-                ></div>
+                >
+                  <div v-html="item.content"></div>
+                  <b-image
+                    v-for="image in getImages(item)"
+                    :key="image.id"
+                    :src="image.preview_url"
+                    alt="Meme"
+                    class="brain-dump-image"
+                  ></b-image>
+                </div>
               </a>
             </div>
           </client-only>
@@ -61,6 +69,12 @@
     border-bottom: 1px solid #bcbc93;
     margin-top: 1.5rem;
   }
+
+  &-image {
+    img {
+      max-height: 100%;
+    }
+  }
 }
 </style>
 
@@ -79,6 +93,13 @@ export default {
         return this.feed[0].account;
       }
       return false;
+    },
+  },
+  methods: {
+    getImages(item) {
+      return item.media_attachments.filter((media) => {
+        return media.type === "image";
+      });
     },
   },
   async fetch() {
