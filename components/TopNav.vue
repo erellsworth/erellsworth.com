@@ -25,6 +25,17 @@
         </b-navbar-item>
 
         <b-navbar-item tag="div">
+          <b-button
+            tag="a"
+            href="https://erellsworth.com/api/feed/rss"
+            target="_blank"
+            icon-right="rss"
+            type="is-primary"
+            size="is-medium"
+            title="Github"
+          />
+        </b-navbar-item>
+        <b-navbar-item tag="div">
           <BrainDump />
         </b-navbar-item>
         <b-navbar-item tag="div">
