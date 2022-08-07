@@ -1,11 +1,14 @@
 import express from 'express';
 import contentRouter from './routes/content';
 import externalRouter from './routes/external';
+import rssRouter from './routes/rss';
 
 // Create express instance
 const app = express();
+
 app.use(contentRouter);
 app.use(externalRouter);
+app.use(rssRouter);
 
 
 // Export express app
